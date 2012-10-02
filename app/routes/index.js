@@ -4,7 +4,7 @@
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Angular Blog' });
+  res.render('index', { title: 'Angular Order' });
 };
 
 exports.partials = require('./partials.js');
