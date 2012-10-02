@@ -27,6 +27,11 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/product/read/:id', routes.index);
+app.get('/product/new', routes.index);
+app.get('/product/edit/:id', routes.index);
+app.get('/product/delete/:id', routes.index);
+
 app.get('/partials/:dir/:filename', routes.partials.template);
 
 app.get('/api/product/list', routes.api.product.list);

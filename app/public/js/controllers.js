@@ -1,10 +1,30 @@
 var IndexController = function IndexController ( $scope, $http ) {
-    $http.get('/api/posts').success(function ( data, status, headers, config ) {
-        $scope.posts = data.posts;
+    $http.get('/api/product/list').success(function ( data, status, headers, config ) {
+        $scope.products = data.products;
     });    
 };
 
-var NewPostController = function NewPostController ( $scope, $http, $location ) {
+var ReadProductController = function ReadProductController ( $scope, $http, $routeParams ) {
+    var product = {
+        id: $routeParams.id    
+    };
+
+    $scope.product = {};
+    $http.get('/api/product/read/' + product.id ).success(function ( data ) {
+        $scope.product = data.product;    
+    });
+};
+
+var NewProductController = function NewProductController ( $scope, $http, $location ) {
+    $scope.form = {};
+    $scope.productNew = function () {
+        $http.post('/api/product/new', $scope.form).success(function ( data ) {
+            $location.path('/'); 
+        });
+    };
+};
+
+/*var NewPostController = function NewPostController ( $scope, $http, $location ) {
     $scope.form = {};
     $scope.postSubmit = function () {
         $http.post('/api/post/new', $scope.form).success(function ( data ) {
@@ -59,4 +79,4 @@ var DeletePostController = function DeletePostController ( $scope, $http, $locat
     $scope.home = function () {
         $location.url('/');    
     };
-};
+};*/

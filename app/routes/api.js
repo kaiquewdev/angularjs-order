@@ -45,7 +45,7 @@ exports.product = {
 
     edit: function ( req, res ) {
         var output = false,
-            product {
+            product = {
                 id: req.params.id    
             };
 

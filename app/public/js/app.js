@@ -1,8 +1,8 @@
-var Blog = angular.module(
-    'myApp', []
+var OrderApp = angular.module(
+    'OrderApp', []
 );
 
-Blog.config([
+OrderApp.config([
     '$routeProvider',
     '$locationProvider'
 , function ( $routeProvider, $locationProvider ) {
@@ -10,37 +10,20 @@ Blog.config([
     
     // Home 
     routes.when('/', {
-        templateUrl: '/partials/post/index',
+        templateUrl: '/partials/product/index',
         controller: IndexController
     });
 
-    // New post
-    routes.when('/post/new', {
-        templateUrl: '/partials/post/new',
-        controller: NewPostController
+    // Read product
+    routes.when('/product/read/:id', {
+        templateUrl: '/partials/product/read',
+        controller: ReadProductController
     });
 
-    // Edit post
-    routes.when('/post/edit/:id', {
-        templateUrl: '/partials/post/edit',
-        controller: EditPostController
-    });
-
-    // Read post
-    routes.when('/post/read/:id', {
-        templateUrl: '/partials/post/read',
-        controller: ReadPostController
-    });
-
-    // Delete post
-    routes.when('/post/delete/:id', {
-        templateUrl: '/partials/post/delete',
-        controller: DeletePostController
-    });
-
-    // Noware
-    routes.otherwise({
-        redirectTo: '/'    
+    // New product
+    routes.when('/product/new', {
+        templateUrl: '/partials/product/new',
+        controller: NewProductController
     });
 
     $locationProvider.html5Mode( true );
