@@ -2,76 +2,75 @@ var vodevil = require('vodevil');
 
 // Mockup for posts
 var data = {
-    posts: [{
-        title: 'Lorem ipsum',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.'
-    }, {
-        title: 'Lorem ipsum2',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.'
-    }]    
+    products: [{
+        name: 'Node.js T-shirt',
+        price: 'R$ 10',
+        details: 'A new t-shirt, of node.js'
+    }]     
 };
 
-exports.posts = function ( req, res ) {
-    var posts = vodevil.intersect(data.posts, function ( post, id ) {
-        return {
-            id: id,
-            title: post.title,
-            text: post.text.substr(0, 50) + '...'
-        };
-    });
-
-    res.json({
-        posts: posts    
-    });
-};
-
-exports.post = {
-    read: function ( req, res ) {
-        var output = false,
-            post = {
-                id: req.params.id 
-            };
-
-        if ( post.id >= 0 && post.id < data.posts.length ) {
-            output = {
-                post: data.posts[ post.id ]    
+exports.product = {
+    list: function ( req, res ) {
+        var output = {};
+        
+        output['products'] = vodevil.intersect(data.products, function ( product, id ) {
+            return {
+                id: id,
+                name: product.name,
+                price: product.price,
+                details: product.details
             };    
-        }
+        });
 
         res.json( output );
     },
 
     new: function ( req, res ) {
-        data.posts.push( req.body );
+        data.products.push( req.body );
         res.json( req.body );
+    },
+
+    read: function ( req, res ) {
+        var output = {},
+            product = {
+                id: req.params.id    
+            };
+
+        if ( product.id >= 0 && product.id < data.products.length ) {
+            output['product'] = data.products[ product.id ];    
+        }
+
+        res.json( output );
     },
 
     edit: function ( req, res ) {
         var output = false,
-            post = {
-                id: req.params.id
+            product {
+                id: req.params.id    
             };
 
-
-        if ( post.id >= 0 && post.id < data.posts.length ) {
-            data.posts[ post.id ] = req.body;    
+        if ( product.id >= 0 && product.id < data.products.length ) {
+            data.products[ product.id ] = req.body;    
             output = true;
+        }
+
+        return output;
+    },
+
+    delete: function ( req, res ) {
+        var output = false,
+            product = {
+                id: req.params.id    
+            };
+
+        if ( product.id >= 0 && product.id < data.products.length ) {
+            var options = vodevil.set( data.products );
+
+            output = options.remove( product.id );
+
+            data.products = options.object;
         }
 
         res.json( output );
     },
-    
-    delete: function ( req, res ) {
-        var output = false,
-            post = {
-                id: req.params.id
-            };
-
-        if ( post.id >= 0 && post.id < data.posts.length ) {
-            data.posts.splice( post.id, 1 );    
-            output = true;
-        }
-
-        res.json( output );
-    }
 };

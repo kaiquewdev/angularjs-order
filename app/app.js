@@ -29,18 +29,11 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/partials/:dir/:filename', routes.partials.template);
 
-app.get('/api/posts', routes.api.posts);
-
-app.get('/api/post/read/:id', routes.api.post.read);
-app.post('/api/post/new', routes.api.post.new);
-app.put('/api/post/edit/:id', routes.api.post.edit);
-app.delete('/api/post/delete/:id', routes.api.post.delete);
-
-app.get('/', routes.index);
-app.get('/post/new', routes.index);
-app.get('/post/read/:id', routes.index);
-app.get('/post/edit/:id', routes.index);
-app.get('/post/delete/:id', routes.index);
+app.get('/api/product/list', routes.api.product.list);
+app.post('/api/product/new', routes.api.product.new);
+app.get('/api/product/read/:id', routes.api.product.read);
+app.put('/api/product/edit/:id', routes.api.product.edit);
+app.put('/api/product/delete/:id', routes.api.product.delete);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
