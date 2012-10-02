@@ -1,3 +1,3 @@
-# Angular.js Blog using Express
+# Angular.js Order System 
 
-Simple blog using Express and Angular.js and Bootstrap
+Simple order system
