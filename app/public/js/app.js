@@ -1,5 +1,5 @@
 var OrderApp = angular.module(
-    'OrderApp', []
+    'OrderApp', ['OrderApp']
 );
 
 OrderApp.config([
@@ -25,6 +25,20 @@ OrderApp.config([
         templateUrl: '/partials/product/new',
         controller: NewProductController
     });
+
+    // Edit
+    routes.when('/product/edit/:id', {
+        templateUrl: '/partials/product/edit',
+        controller: EditProductController
+    });
+
+    // Delete 
+    routes.when('/product/delete/:id', {
+        templateUrl: '/partials/product/delete',
+        controller: DeleteProductController
+    });
+
+    routes.otherwise('/');
 
     $locationProvider.html5Mode( true );
 }]);

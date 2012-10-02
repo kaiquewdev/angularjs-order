@@ -54,21 +54,19 @@ exports.product = {
             output = true;
         }
 
-        return output;
+        res.json( output );
     },
 
     delete: function ( req, res ) {
         var output = false,
+            productsSet = vodevil.set( data.products ),
             product = {
                 id: req.params.id    
             };
 
         if ( product.id >= 0 && product.id < data.products.length ) {
-            var options = vodevil.set( data.products );
-
-            output = options.remove( product.id );
-
-            data.products = options.object;
+            data.products.splice( product.id, 1 );
+            output = true;
         }
 
         res.json( output );

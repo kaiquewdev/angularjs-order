@@ -1,10 +1,24 @@
-var IndexController = function IndexController ( $scope, $http ) {
-    $http.get('/api/product/list').success(function ( data, status, headers, config ) {
+var IndexController = function ( 
+    $scope, 
+    $http 
+) {
+    $http.get(
+        '/api/product/list'
+    ).success(function ( 
+        data, 
+        status, 
+        headers, 
+        config 
+    ) {
         $scope.products = data.products;
     });    
 };
 
-var ReadProductController = function ReadProductController ( $scope, $http, $routeParams ) {
+var ReadProductController = function ( 
+    $scope, 
+    $http, 
+    $routeParams 
+) {
     var product = {
         id: $routeParams.id    
     };
@@ -15,68 +29,68 @@ var ReadProductController = function ReadProductController ( $scope, $http, $rou
     });
 };
 
-var NewProductController = function NewProductController ( $scope, $http, $location ) {
+var NewProductController = function ( 
+    $scope, 
+    $http, 
+    $location 
+) {
     $scope.form = {};
     $scope.productNew = function () {
         $http.post('/api/product/new', $scope.form).success(function ( data ) {
-            $location.path('/'); 
+            $location.path('/');
         });
     };
 };
 
-/*var NewPostController = function NewPostController ( $scope, $http, $location ) {
+var EditProductController = function ( 
+    $scope, 
+    $http, 
+    $location, 
+    $routeParams 
+) {
+    var product = {
+        id: $routeParams.id 
+    };
+
     $scope.form = {};
-    $scope.postSubmit = function () {
-        $http.post('/api/post/new', $scope.form).success(function ( data ) {
-            $location.path('/');    
-        });    
+    $http.get('/api/product/read/' + product.id).success(function ( data ) {
+        $scope.form = data.product;    
+    });
+
+    $scope.productEdit = function () {
+        $http.put(
+            '/api/product/edit/' + product.id, 
+            $scope.form
+        ).success(function ( data ) {
+            $location.url('/product/read/' + product.id);
+        });
     };
 };
 
-var ReadPostController = function ReadPostController ( $scope, $http, $routeParams ) {
-    var post = {
-        id: $routeParams.id
+var DeleteProductController = function ( 
+    $scope, 
+    $http, 
+    $location, 
+    $routeParams 
+) {
+    var product = {
+        id: $routeParams.id 
     };
 
-    $scope.post = {};
-    $http.get('/api/post/read/' + post.id).success(function ( data ) {
-        $scope.post = data.post;
-    });
-};
-
-var EditPostController = function EditPostController ( $scope, $http, $location, $routeParams ) {
-    var post = {
-        id: $routeParams.id
-    };    
-
-    $scope.post = {};
-    $http.get('/api/post/read/' + post.id).success(function ( data ) {
-        $scope.post = data.post;    
+    $scope.product = {};
+    $http.get('/api/product/read/' + product.id).success(function ( data ) {
+        $scope.product = data.product;    
     });
 
-    $scope.postEdit = function () {
-        $http.put('/api/post/edit/' + post.id, $scope.form).success(function ( data ) {
-            $location.url('/post/read' + post.id );    
-        }); 
-    };
-};
-
-var DeletePostController = function DeletePostController ( $scope, $http, $location, $routeParams ) {
-    var post = {
-        id: $routeParams.id
-    };
-
-    $http.get('/api/post/read/' + post.id).success(function ( data ) {
-        $scope.post = data.post;    
-    });
-
-    $scope.postDelete = function () {
-        $http.delete('/api/post/delete/' + post.id).success(function ( data ) {
-            $location.url('/');
-        });   
+    $scope.productDelete = function () {
+        $http.delete(
+            '/api/product/delete/' + product.id 
+        ).success(function ( data ) {
+            $location.url('/'); 
+        });
     };
 
     $scope.home = function () {
         $location.url('/');    
     };
-};*/
+};

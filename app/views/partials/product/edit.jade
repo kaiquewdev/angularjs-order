@@ -1,0 +1,11 @@
+h3 Edit product
+label(for='name') Name:
+input(ng-model='form.name', type='text', name='name') {{form.name}}
+br
+label(for='price') Price:
+input(ng-model='form.price', type='text', name='price') {{form.price}}
+br
+label(for='details') Details:
+textarea(ng-model='form.details', name='details') {{form.details}}
+br
+button(class='btn', ng-click='productEdit()') Save 
