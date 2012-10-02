@@ -1,0 +1,14 @@
+div.container: ul(ng-repeat='product in products')
+    li
+        span.product-name {{product.name}}
+        br
+        span.product-price {{product.price}}
+        br
+        span.product-details {{product.details}}
+        br
+        span.product-options
+            a(href='/product/read/{{product.id}}') View
+            |  - 
+            a(href='/product/edit/{{product.id}}') Edit 
+            |  - 
+            a(href='/product/delete/{{product.id}}') Delete
